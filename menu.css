@@ -1,0 +1,100 @@
+:root {
+  --menu-color: rgba(128, 128, 128, 0.8); /* Gris translúcido */
+}
+
+#sidebar {
+  position: fixed;
+  left: -250px;
+  top: 60px; /* Bajado para evitar superposición con el contenido */
+  width: 250px;
+  height: auto;
+  background-color: var(--menu-color);
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+  border-radius: 0 10px 10px 0;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+#sidebar.active {
+  left: 0;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    left: -250px;
+    opacity: 0;
+  }
+  to {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+#sidebar ul {
+  padding: 20px 0;
+  list-style-type: none;
+  margin: 0;
+}
+
+#sidebar ul li {
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+#sidebar ul li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2em;
+  display: block;
+  transition: all 0.3s;
+}
+
+#sidebar ul li a:hover {
+  transform: translateX(5px);
+}
+
+.menu-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  z-index: 1001;
+  font-size: 24px;
+  color: #fff;
+  background-color: var(--menu-color);
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+  background-color: rgba(128, 128, 128, 0.9); /* Gris translúcido más oscuro al hover */
+}
+
+/* Nuevo estilo para el fondo oscuro cuando el menú está abierto */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+.menu-overlay.active {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    width: 100%;
+    left: -100%;
+  }
+}
