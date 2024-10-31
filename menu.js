@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     menuToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
         sidebar.classList.toggle('active');
         overlay.classList.toggle('active');
         body.classList.toggle('menu-open');

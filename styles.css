@@ -117,6 +117,7 @@ h1 {
   z-index: 1000;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   transition: margin-left 0.3s ease-in-out;
+  border-radius: 6px;
 }
 
 body.menu-active .top-nav {
@@ -1193,4 +1194,8 @@ html, body {
 
 .tipo-precio {
   font-weight: bold;
+}
+
+nav#sidebar {
+  top: 80px; /* O el valor que prefieras */
 }
