@@ -11,6 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
         body.appendChild(overlay);
     }
 
+    // Función para cerrar el menú
+    function closeMenu() {
+        menuToggle.classList.remove('active');
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        body.classList.remove('menu-open');
+    }
+
     menuToggle.addEventListener('click', function() {
         this.classList.toggle('active');
         sidebar.classList.toggle('active');
@@ -19,18 +27,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Cerrar el menú al hacer clic en el overlay
-    overlay.addEventListener('click', function() {
-        sidebar.classList.remove('active');
-        overlay.classList.remove('active');
-        body.classList.remove('menu-open');
+    overlay.addEventListener('click', closeMenu);
+
+    // Cerrar el menú al hacer clic en cualquier parte del documento cuando está abierto
+    document.addEventListener('click', function(event) {
+        if (sidebar.classList.contains('active') && 
+            !sidebar.contains(event.target) && 
+            !menuToggle.contains(event.target)) {
+            closeMenu();
+        }
     });
 
     // Cerrar el menú al hacer clic en un enlace
     sidebar.addEventListener('click', function(event) {
         if (event.target.tagName === 'A') {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-            body.classList.remove('menu-open');
+            closeMenu();
         }
     });
 

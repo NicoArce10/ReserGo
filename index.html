@@ -95,8 +95,16 @@
             <label for="reservation-time">Hora:</label>
             <select id="reservation-time" class="input-select" required></select>
 
-            <label for="reservation-people">Cantidad de personas:</label>
-            <input type="number" id="reservation-people" min="1" class="input-text" required>
+            <div class="form-group">
+                <label for="reservation-people">Cantidad de personas:</label>
+                <input type="number" 
+                       id="reservation-people" 
+                       inputmode="numeric"
+                       min="1" 
+                       max="20" 
+                       class="input-text" 
+                       required>
+            </div>
 
             <label for="contact-info">Correo:</label>
             <input type="email" id="contact-info" placeholder="correo@example.com" class="input-text" required>

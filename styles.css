@@ -264,7 +264,7 @@ body.menu-active .reservation-form {
 
 .reservation-form .input-text,
 .reservation-form .input-select {
-  width: 100%;
+  width: 95%;
   margin-bottom: 20px;
 }
 
@@ -613,7 +613,6 @@ button.edit:hover, button.delete:hover {
     from { transform: translateY(50px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
-
 .text-content p {
     margin-bottom: 1rem;
     line-height: 1.6;
@@ -1044,7 +1043,7 @@ main {
   transform: translateY(-2px);
 }
 
-/* Estilos comunes para todos los footers */
+
 .site-footer {
   color: #ecf0f1;
   width: 100%;
@@ -1077,7 +1076,6 @@ main {
   margin-right: 5px;
 }
 
-/* Estilos específicos para el footer de la página principal */
 .footer {
   background-color: #5fb7b6;
   padding: 40px 0;
@@ -1085,7 +1083,6 @@ main {
   text-align: center;
 }
 
-/* Estilos específicos para el footer de las páginas secundarias */
 .secondary-footer {
   background-color: #ce3737;
   padding: 20px 0;
@@ -1197,5 +1194,229 @@ html, body {
 }
 
 nav#sidebar {
-  top: 80px; /* O el valor que prefieras */
+  top: 80px; 
 }
+
+
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.search-bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+
+@media (max-width: 768px) {
+  .top-nav {
+    position: static; 
+    padding: 10px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    gap: 10px;
+    width: calc(100% - 20px); 
+    margin: 0 auto;
+  }
+
+  #search-input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .filter-group {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+
+  #filter-type,
+  #filter-zone {
+    flex: 1;
+    width: calc(50% - 5px); 
+    box-sizing: border-box;
+  }
+
+  #search-button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .filter-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #filter-type,
+  #filter-zone {
+    width: 100%;
+  }
+}
+
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 80px 15px 20px; 
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  
+  .text-content {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .contact-form {
+    width: 100%;
+    padding-top: 20px; 
+  }
+}
+
+
+@media (max-width: 480px) {
+  .content-wrapper {
+    padding: 70px 10px 15px;
+  }
+}
+
+
+.reservation-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+.input-text,
+.input-select {
+    width: 98%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+
+@media (max-width: 768px) {
+    .reservation-form {
+        width: calc(100% - 30px); 
+        padding: 15px;
+        margin: 0 auto;
+    }
+
+
+   
+    .reservation-form input[type="text"],
+    .reservation-form input[type="email"],
+    .reservation-form input[type="date"],
+    .reservation-form input[type="number"],
+    .reservation-form select,
+    #reservation-time,
+    #reservation-people-mobile {
+        width: 100%;
+        height: 40px; 
+        padding: 8px 12px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+   
+    .reservation-form .btn {
+        width: 100%;
+        height: 40px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .reservation-form {
+        width: calc(100% - 20px);
+        padding: 10px;
+    }
+}
+
+
+.content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.content-wrapper h1 {
+    max-width: 700px;
+    margin: 0 auto 20px;
+    text-align: left;
+}
+
+.text-content {
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 80px 15px 20px;
+    }
+
+    .content-wrapper h1,
+    .text-content {
+        width: 100%;
+        max-width: 100%; 
+        padding: 0;      
+    }
+
+    .text-content {
+        text-align: left; 
+    }
+}
+
+
+textarea,
+textarea.input-text {
+    width: 100%;
+    height: 120px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: none !important;
+    overflow: auto;
+}
+
+
+@media (max-width: 768px) {
+    textarea,
+    textarea.input-text {
+        width: 103%;
+    }
+}
+
