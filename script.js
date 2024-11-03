@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const restaurantes = [
     { nombre: "La Cabrera", zona: "Palermo", tipo: "Parrilla", descripcion: "Una de las mejores parrillas...", direccion: "Cabrera 5099", horarioApertura: "12:00", horarioCierre: "23:00", imagen: "Cabrera.png", precio: "$$$$" },
     { nombre: "SushiClub", zona: "Recoleta", tipo: "Japonesa", descripcion: "Exclusivo restaurante de sushi...", direccion: "Avenida Alvear 1502", horarioApertura: "12:00", horarioCierre: "22:00", imagen: "SushiClub.png", precio: "$$$" },
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
       timeSelect.innerHTML = '<option value="">Seleccione una hora</option>';
       const fechaSeleccionada = new Date(dateInput.value + "T00:00:00");
       const fechaActual = new Date();
-      
+
       let horaInicio = new Date(fechaSeleccionada);
       let horaApertura = restaurante.horarioApertura.split(':');
       horaInicio.setHours(parseInt(horaApertura[0]), parseInt(horaApertura[1]));
@@ -135,11 +135,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     generarOpcionesHora();
 
-    document.getElementById('reservation-form').scrollIntoView({behavior: 'smooth'});
+    document.getElementById('reservation-form').scrollIntoView({ behavior: 'smooth' });
   }
 
   const form = document.getElementById('reservation-details');
-  form.addEventListener('submit', function(e) {
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
     const fechaReserva = document.getElementById("reservation-date").value;
     const horaReserva = document.getElementById("reservation-time").value;
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!reservationsOutput) return;
 
     reservationsOutput.innerHTML = '';
-    
+
     if (reservas.length === 0) {
       reservationsOutput.innerHTML = '<p>No tienes reservas activas.</p>';
       return;
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
     reservationsOutput.appendChild(ul);
   }
 
-  window.editarReserva = function(id) {
+  window.editarReserva = function (id) {
     let reservasGuardadas = JSON.parse(localStorage.getItem('reservas')) || [];
     const reserva = reservasGuardadas.find(r => r.id === id);
     if (reserva) {
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  window.eliminarReserva = function(id) {
+  window.eliminarReserva = function (id) {
     let reservasGuardadas = JSON.parse(localStorage.getItem('reservas')) || [];
     reservasGuardadas = reservasGuardadas.filter(r => r.id !== id);
     localStorage.setItem('reservas', JSON.stringify(reservasGuardadas));
@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   searchButton.addEventListener('click', buscarRestaurantes);
 
-  searchInput.addEventListener('keypress', function(e) {
+  searchInput.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
       e.preventDefault();
       buscarRestaurantes();
@@ -278,13 +278,13 @@ function scrollToSection(elementId) {
   });
 }
 
-document.getElementById('explore-btn').addEventListener('click', function() {
+document.getElementById('explore-btn').addEventListener('click', function () {
   scrollToSection('restaurant-list');
 });
 
 function realizarReserva(event) {
   event.preventDefault();
-  
+
   const nombreCliente = document.getElementById('reservation-name').value;
   const restaurante = document.getElementById('selected-restaurant').textContent;
   const fecha = document.getElementById('reservation-date').value;
@@ -362,8 +362,8 @@ function editarReserva(id) {
     localStorage.setItem('reservas', JSON.stringify(reservasActualizadas));
 
     // Desplazarse hasta el formulario de reserva
-    document.getElementById('reservation-form').scrollIntoView({behavior: 'smooth'});
-    
+    document.getElementById('reservation-form').scrollIntoView({ behavior: 'smooth' });
+
     // Actualizar la sección de Mis Reservas
     mostrarMisReservas();
   }
@@ -377,7 +377,7 @@ function eliminarReserva(id) {
   mostrarModal('reserva-eliminada');
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   mostrarMisReservas();
 });
 
@@ -386,17 +386,17 @@ function mostrarModal(modalId) {
   modal.style.display = "block";
 
   const span = modal.querySelector(".close");
-  span.onclick = function() {
+  span.onclick = function () {
     modal.style.display = "none";
   }
 
-  window.onclick = function(event) {
+  window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
   }
 
-  setTimeout(function() {
+  setTimeout(function () {
     modal.style.display = "none";
   }, 3000);
 }
@@ -409,8 +409,8 @@ function realizarBusqueda() {
   const restaurantesFiltrados = restaurantes.filter(restaurante => {
     const nombreNormalizado = restaurante.nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     return (nombreNormalizado.includes(textoBusqueda) || textoBusqueda === '') &&
-           (restaurante.tipo.toLowerCase() === tipoSeleccionado || tipoSeleccionado === '') &&
-           (restaurante.zona.toLowerCase() === zonaSeleccionada || zonaSeleccionada === '');
+      (restaurante.tipo.toLowerCase() === tipoSeleccionado || tipoSeleccionado === '') &&
+      (restaurante.zona.toLowerCase() === zonaSeleccionada || zonaSeleccionada === '');
   });
 
   document.getElementById('reservation-form').style.display = "none";
@@ -419,21 +419,21 @@ function realizarBusqueda() {
 
 searchButton.addEventListener('click', realizarBusqueda);
 
-searchInput.addEventListener('keypress', function(e) {
+searchInput.addEventListener('keypress', function (e) {
   if (e.key === 'Enter') {
     e.preventDefault();
     realizarBusqueda();
   }
 });
 
-filterType.addEventListener('keypress', function(e) {
+filterType.addEventListener('keypress', function (e) {
   if (e.key === 'Enter') {
     e.preventDefault();
     realizarBusqueda();
   }
 });
 
-filterZone.addEventListener('keypress', function(e) {
+filterZone.addEventListener('keypress', function (e) {
   if (e.key === 'Enter') {
     e.preventDefault();
     realizarBusqueda();

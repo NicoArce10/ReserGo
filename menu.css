@@ -1,11 +1,11 @@
 :root {
-  --menu-color: rgba(128, 128, 128, 0.8); /* Gris translúcido */
+  --menu-color: rgba(128, 128, 128, 0.8); 
 }
 
 #sidebar {
   position: fixed;
   left: -250px;
-  top: 60px; /* Bajado para evitar superposición con el contenido */
+  top: 60px; 
   width: 250px;
   height: auto;
   background-color: var(--menu-color);
@@ -73,10 +73,9 @@
 }
 
 .menu-toggle:hover {
-  background-color: rgba(128, 128, 128, 0.9); /* Gris translúcido más oscuro al hover */
+  background-color: rgba(128, 128, 128, 0.9); 
 }
 
-/* Nuevo estilo para el fondo oscuro cuando el menú está abierto */
 .menu-overlay {
   position: fixed;
   top: 0;
@@ -113,13 +112,13 @@
 .bar {
     position: absolute;
     width: 100%;
-    height: 4px; /* Aumentado para hacer más bold */
+    height: 4px; 
     background-color: #fff;
     transition: transform 0.3s ease-in-out,
                 opacity 0.2s ease-in-out;
     font-family: "Font Awesome 6 Free";
     font-weight: bold;
-    border-radius: 2px; /* Añadido para puntas redondeadas */
+    border-radius: 2px; 
 }
 
 .top {
@@ -130,7 +129,6 @@
     transform: translateY(8px);
 }
 
-/* Animación a X perfectamente simétrica */
 .menu-toggle.active .top {
     transform: translateY(0) rotate(45deg);
 }
