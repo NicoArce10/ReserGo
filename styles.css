@@ -1033,3 +1033,12 @@ textarea.input-text {
     resize: none !important;
     overflow: auto;
 }
+
+/* Estilos específicos para iOS */
+@supports (-webkit-touch-callout: none) {
+    .reservation-form input[type="date"] {
+        min-width: 100%;
+        display: block;
+        min-height: 44px; /* Altura mínima recomendada para inputs en iOS */
+    }
+}
