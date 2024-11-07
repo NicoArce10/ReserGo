@@ -66,22 +66,35 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  searchButton.addEventListener('click', () => {
+  // Definir una única función de búsqueda
+  function buscarRestaurantes() {
+    const searchTerm = normalizeText(searchInput.value);
     const tipoSeleccionado = filterType.value.toLowerCase();
-    const zonaSeleccionada = filterZone.value.toLowerCase();
-    const textoBusqueda = searchInput.value.toLowerCase();
+    const zonaSeleccionada = filterZone.value;
 
-    const restaurantesFiltrados = restaurantes.filter(restaurante => {
-      const coincideTipo = tipoSeleccionado === "" || restaurante.tipo.toLowerCase() === tipoSeleccionado;
-      const coincideZona = zonaSeleccionada === "" || restaurante.zona.toLowerCase() === zonaSeleccionada;
-      const coincideNombre = restaurante.nombre.toLowerCase().includes(textoBusqueda);
-      return coincideTipo && coincideZona && coincideNombre;
+    const resultados = restaurantes.filter(restaurante => {
+      const coincideNombre = normalizeText(restaurante.nombre).includes(searchTerm);
+      const coincideTipo = tipoSeleccionado === '' || restaurante.tipo.toLowerCase() === tipoSeleccionado;
+      const coincideZona = zonaSeleccionada === '' || restaurante.zona === zonaSeleccionada;
+      return coincideNombre && coincideTipo && coincideZona;
     });
 
-    document.getElementById('reservation-form').style.display = "none";
+    document.getElementById('reservation-form').style.display = 'none';
+    mostrarRestaurantes(resultados);
+  }
 
-    mostrarRestaurantes(restaurantesFiltrados);
+  // Agregar todos los event listeners juntos
+  searchButton.addEventListener('click', buscarRestaurantes);
+  
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      buscarRestaurantes();
+    }
   });
+
+  filterType.addEventListener('change', buscarRestaurantes);
+  filterZone.addEventListener('change', buscarRestaurantes);
 
   function mostrarFormularioReserva(restaurante) {
     document.getElementById("selected-restaurant").textContent = restaurante.nombre;
@@ -238,36 +251,59 @@ document.addEventListener('DOMContentLoaded', function () {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   }
 
-  function buscarRestaurantes() {
-    const searchTerm = normalizeText(searchInput.value);
-    const tipoSeleccionado = filterType.value.toLowerCase();
-    const zonaSeleccionada = filterZone.value;
+  function mostrarMisReservas() {
+    const misReservasSection = document.getElementById('mis-reservas');
+    const listaReservas = document.getElementById('lista-reservas');
+    const reservas = JSON.parse(localStorage.getItem('reservas')) || [];
 
-    const resultados = restaurantes.filter(restaurante => {
-      const coincideNombre = normalizeText(restaurante.nombre).includes(searchTerm);
-      const coincideTipo = tipoSeleccionado === '' || restaurante.tipo.toLowerCase() === tipoSeleccionado;
-      const coincideZona = zonaSeleccionada === '' || restaurante.zona === zonaSeleccionada;
-      return coincideNombre && coincideTipo && coincideZona;
+    if (reservas.length === 0) {
+      misReservasSection.style.display = 'none';
+      return;
+    }
+
+    misReservasSection.style.display = 'block';
+    listaReservas.innerHTML = '';
+
+    reservas.forEach((reserva) => {
+      const reservaElement = document.createElement('div');
+      reservaElement.classList.add('reserva-item');
+      reservaElement.innerHTML = `
+        <h3>${reserva.restaurante}</h3>
+        <p><strong>Fecha:</strong> ${reserva.fecha}</p>
+        <p><strong>Hora:</strong> ${reserva.hora}</p>
+        <p><strong>Personas:</strong> ${reserva.personas}</p>
+        <div class="botones">
+          <button class="editar" onclick="editarReserva(${reserva.id})">Editar</button>
+          <button class="eliminar" onclick="eliminarReserva(${reserva.id})">Eliminar</button>
+        </div>
+      `;
+      listaReservas.appendChild(reservaElement);
     });
-
-    document.getElementById('reservation-form').style.display = 'none';
-
-    mostrarRestaurantes(resultados);
-
-    mostrarMisReservas();
   }
 
-  searchButton.addEventListener('click', buscarRestaurantes);
-
-  searchInput.addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      buscarRestaurantes();
-    }
+  document.addEventListener('DOMContentLoaded', function () {
+    mostrarMisReservas();
   });
 
-  filterType.addEventListener('change', buscarRestaurantes);
-  filterZone.addEventListener('change', buscarRestaurantes);
+  function mostrarModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = "block";
+
+    const span = modal.querySelector(".close");
+    span.onclick = function () {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    setTimeout(function () {
+      modal.style.display = "none";
+    }, 3000);
+  }
 });
 
 function scrollToSection(elementId) {
@@ -400,43 +436,3 @@ function mostrarModal(modalId) {
     modal.style.display = "none";
   }, 3000);
 }
-
-function realizarBusqueda() {
-  const textoBusqueda = searchInput.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  const tipoSeleccionado = filterType.value.toLowerCase();
-  const zonaSeleccionada = filterZone.value.toLowerCase();
-
-  const restaurantesFiltrados = restaurantes.filter(restaurante => {
-    const nombreNormalizado = restaurante.nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    return (nombreNormalizado.includes(textoBusqueda) || textoBusqueda === '') &&
-      (restaurante.tipo.toLowerCase() === tipoSeleccionado || tipoSeleccionado === '') &&
-      (restaurante.zona.toLowerCase() === zonaSeleccionada || zonaSeleccionada === '');
-  });
-
-  document.getElementById('reservation-form').style.display = "none";
-  mostrarRestaurantes(restaurantesFiltrados);
-}
-
-searchButton.addEventListener('click', realizarBusqueda);
-
-searchInput.addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    realizarBusqueda();
-  }
-});
-
-filterType.addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    realizarBusqueda();
-  }
-});
-
-filterZone.addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    realizarBusqueda();
-  }
-});
-
