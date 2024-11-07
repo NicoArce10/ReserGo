@@ -30,10 +30,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function toggleMenu(e) {
         e.preventDefault();
-        elements.menuToggle.classList.toggle('active');
-        elements.sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
-        elements.body.classList.toggle('menu-open');
+        e.stopPropagation();
+        
+        // Agregar un pequeño delay para evitar el doble trigger
+        setTimeout(() => {
+            elements.menuToggle.classList.toggle('active');
+            elements.sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            elements.body.classList.toggle('menu-open');
+        }, 10);
     }
 
     function handleClickOutside(event) {
@@ -55,7 +60,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Agregar solo el event listener apropiado según el dispositivo
     if (isTouchDevice) {
-        elements.menuToggle.addEventListener('touchstart', toggleMenu, { passive: false });
+        elements.menuToggle.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMenu(e);
+        }, { passive: false });
     } else {
         elements.menuToggle.addEventListener('click', toggleMenu);
     }
