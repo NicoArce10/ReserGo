@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function toggleMenu(e) {
-        // Prevenir comportamiento por defecto
         e.preventDefault();
         elements.menuToggle.classList.toggle('active');
         elements.sidebar.classList.toggle('active');
@@ -51,35 +50,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Detectar si es dispositivo táctil
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    // Agregar solo el event listener apropiado según el dispositivo
+    if (isTouchDevice) {
+        elements.menuToggle.addEventListener('touchstart', toggleMenu, { passive: false });
+    } else {
+        elements.menuToggle.addEventListener('click', toggleMenu);
+    }
+
+    overlay.addEventListener(isTouchDevice ? 'touchstart' : 'click', closeMenu);
+    document.addEventListener(isTouchDevice ? 'touchstart' : 'click', handleClickOutside);
+    elements.sidebar.addEventListener(isTouchDevice ? 'touchstart' : 'click', handleSidebarClick);
+
+    if (elements.contactForm) {
+        elements.contactForm.addEventListener('submit', handleContactFormSubmit);
+    }
+
     function handleContactFormSubmit(event) {
         event.preventDefault();
         alert('Mensaje enviado con éxito. Gracias por contactarnos!');
         elements.contactForm.reset();
-    }
-
-    // Event Listeners con manejo específico para touch
-    let touchMoved = false;
-
-    elements.menuToggle.addEventListener('touchstart', function(e) {
-        touchMoved = false;
-        toggleMenu(e);
-    }, { passive: false });
-
-    elements.menuToggle.addEventListener('touchmove', function() {
-        touchMoved = true;
-    });
-
-    elements.menuToggle.addEventListener('click', function(e) {
-        if (!('ontouchstart' in window) || !touchMoved) {
-            toggleMenu(e);
-        }
-    });
-
-    overlay.addEventListener('click', closeMenu);
-    document.addEventListener('click', handleClickOutside);
-    elements.sidebar.addEventListener('click', handleSidebarClick);
-
-    if (elements.contactForm) {
-        elements.contactForm.addEventListener('submit', handleContactFormSubmit);
     }
 });
