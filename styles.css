@@ -1034,11 +1034,18 @@ textarea.input-text {
     overflow: auto;
 }
 
+
 /* Estilos específicos para iOS */
 @supports (-webkit-touch-callout: none) {
     .reservation-form input[type="date"] {
-        min-width: 100%;
-        display: block;
-        min-height: 44px; /* Altura mínima recomendada para inputs en iOS */
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+      background-color: #fff;
     }
 }
