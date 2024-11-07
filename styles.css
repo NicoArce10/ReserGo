@@ -1038,15 +1038,6 @@ textarea.input-text {
 /* Estilos específicos para iOS */
 @supports (-webkit-touch-callout: none) {
     .reservation-form input[type="date"] {
-      -webkit-appearance: none;
-      appearance: none;
       width: 100%;
-      padding: 12px 15px;
-      font-size: 16px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      box-sizing: border-box;
-      background-color: #fff;
-      text-align: left;
     }
 }
