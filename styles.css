@@ -1038,6 +1038,9 @@ textarea.input-text {
 /* Estilos específicos para iOS */
 @supports (-webkit-touch-callout: none) {
     .reservation-form input[type="date"] {
-      width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+
     }
 }
