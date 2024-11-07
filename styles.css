@@ -1047,5 +1047,6 @@ textarea.input-text {
       border-radius: 5px;
       box-sizing: border-box;
       background-color: #fff;
+      text-align: left;
     }
 }
